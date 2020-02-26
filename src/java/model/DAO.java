@@ -63,6 +63,26 @@ public class DAO {
 		}
 		return result;
 	}
+        
+        public int modDiscountCode(String code, float rate) throws SQLException {
+            
+            /**         Sintaxe de la commande UPDATE
+             * UPDATE client
+            SET rue = '49 Rue Ameline',
+            ville = 'Saint-Eustache-la-Forêt',
+            code_postal = '76210'
+            WHERE id = 2
+            **/
+		int result = 0;
+		String sql = "UPDATE DISCOUNT_CODE SET RATE = ? WHERE DISCOUNT_CODE = ?";
+		try (Connection connection = myDataSource.getConnection(); 
+		     PreparedStatement stmt = connection.prepareStatement(sql)) {
+			stmt.setFloat(1, rate);
+                        stmt.setString(2, code);
+			result = stmt.executeUpdate();
+		}
+		return result;
+        }
 
 		
 	/**
